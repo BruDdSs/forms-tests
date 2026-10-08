@@ -6,9 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.ScrollIntoViewOptions.Block.start;
+import static com.codeborne.selenide.ScrollIntoViewOptions.instant;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class SearchTests
@@ -28,7 +29,7 @@ public class SearchTests
             $("#firstName").setValue("Bob");
             $("#lastName").setValue("Smith");
             $("#userEmail").setValue("bobRod1989@gmail.com");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("8312314213");
             $("#dateOfBirthInput").click();
             $(".react-datepicker__month-select").selectOption("February");
@@ -36,8 +37,8 @@ public class SearchTests
             $(".react-datepicker__day--028").click();
             $("#subjectsInput").setValue("Computer science").pressEnter();
             $("#hobbies-checkbox-3").click();
-            $("#uploadPicture").uploadFile(new File("C:\\Users\\Dzara\\Desktop\\oboi\\enot.jpg"));
-            $("#currentAddress").setValue("ulitsa Lenina, dom 15, kvartira 24\n" + "Kazan, Respublika Tatarstan\n" + "420107\n" + "RUSSIA");
+            $("#uploadPicture").uploadFromClasspath("img/enot.jpg");
+            $("#currentAddress").setValue("ulitsa Lenina, dom 15, kvartira 24\n Kazan, Respublika Tatarstan\n  420107\n RUSSIA");
             $("input#react-select-3-input").setValue("Haryana").pressEnter();
             $("input#react-select-4-input").setValue("Karnal").pressEnter();
             $("#submit").click();
@@ -61,9 +62,9 @@ public class SearchTests
             open("/automation-practice-form");
             $("#firstName").setValue("Bob");
             $("#lastName").setValue("Smith");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("8312314213");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
         }
         @Test
@@ -73,7 +74,7 @@ public class SearchTests
         $("#firstName").setValue("Bob");
         $("#lastName").setValue("Smith");
         $("#userEmail").setValue("bobRod1989@gmail.com");
-        $("#gender-radio-1").selectRadio("Male");
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("8312314213");
         SelenideElement inputField = $("#dateOfBirthInput");
         $("#dateOfBirthInput").click();
@@ -89,9 +90,9 @@ public class SearchTests
             open("/automation-practice-form");
             $("#lastName").setValue("Smith");
             $("#userEmail").setValue("bobRod1989@gmail.com");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("8312314213");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $(".modal-open").shouldNot(exist);
         }
 
@@ -100,9 +101,9 @@ public class SearchTests
             open("/automation-practice-form");
             $("#firstName").setValue("Bob");
             $("#userEmail").setValue("bobRod1989@gmail.com");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("8312314213");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $(".modal-open").shouldNot(exist);
         }
 
@@ -112,9 +113,9 @@ public class SearchTests
             $("#firstName").setValue("Bob");
             $("#lastName").setValue("Smith");
             $("#userEmail").setValue("bobRod1989gmail.com");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("8312314213");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $(".modal-open").shouldNot(exist);
         }
 
@@ -124,9 +125,9 @@ public class SearchTests
             $("#firstName").setValue("Bob");
             $("#lastName").setValue("Smith");
             $("#userEmail").setValue("bobRod1989@gmail.com");
-            $("#gender-radio-1").selectRadio("Male");
+            $("#genterWrapper").$(byText("Male")).click();
             $("#userNumber").setValue("831231413");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $(".modal-open").shouldNot(exist);
         }
         @Test
@@ -136,7 +137,7 @@ public class SearchTests
             $("#userEmail").setValue("bobRod1989@gmail.com");
             $("#currentAddress").setValue("123 Maple Avenue, Apt. 4B");
             $("#permanentAddress").setValue("Pushkin Street, Kolotushkin’s house");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
 
             $("#output").shouldHave(text("Bob Smith Jr."));
             $("#output").shouldHave(text("bobRod1989@gmail.com"));
@@ -151,7 +152,7 @@ public class SearchTests
             $("#userEmail").setValue("bobRod1989gmail.com");
             $("#currentAddress").setValue("123 Maple Avenue, Apt. 4B");
             $("#permanentAddress").setValue("Pushkin Street, Kolotushkin’s house");
-            $("#submit").scrollIntoView(true).click();
+            $("#submit").scrollIntoView(instant().block(start)).click();
             $("#output").shouldNotBe(visible);
         }
 
